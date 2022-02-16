@@ -3,7 +3,6 @@ package br.com.letscode.cookbook.view;
 import br.com.letscode.cookbook.controller.Catalogo;
 import br.com.letscode.cookbook.domain.Receita;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class CatalogoView {
@@ -72,10 +71,8 @@ public class CatalogoView {
     private boolean showMenu() {
         System.out.println("#".repeat(100));
         System.out.println("  + : Adicionar  ");
-        if (ative != null) {
-            System.out.println("  - : Remover  ");
-        }
         if (controller.getTotal() > 0) {
+            System.out.println("  - : Remover  ");
             System.out.println("  P : Próxima  ");
             System.out.println("  A : Anterior  ");
             System.out.println("  L : Localizar  ");
@@ -85,26 +82,26 @@ public class CatalogoView {
         System.out.println("#".repeat(100));
 
         Scanner scanner = new Scanner(System.in);
-        String opcao = scanner.nextLine().trim().toUpperCase(Locale.getDefault());
+        char opcao = scanner.next().toUpperCase().charAt(0);
         switch (opcao) {
-            case "+":
+            case '+':
                 add();
                 break;
-            case "-":
+            case '-':
                 if (ative != null) del();
                 break;
-            case "P":
+            case 'P':
                 if (ative != null) next();
                 break;
-            case "A":
+            case 'A':
                 if (ative != null) previous();
                 break;
-            case "L":
+            case 'L':
                 if (controller.getTotal() > 0) {
                     find();
                 }
                 break;
-            case "X":
+            case 'X':
                 System.out.println("Obrigado!!");
                 return false;
             default:
@@ -124,7 +121,7 @@ public class CatalogoView {
             ative = null;
         }
         if (ative == null) {
-            currentIndex=1;
+            currentIndex = 1;
             ative = controller.getReceita(currentIndex);
         }
     }
@@ -150,15 +147,16 @@ public class CatalogoView {
         //Se NÃO estiver com uma receita ativa, mostra mensagem.
         //Se estiver com uma receita ativa, confirma a operação.
         //Se confirmar, solicita ao Catalogo apagar a receita.
+
         System.out.println("Você deseja realmente APAGAR a receita " + ative.getNome() + "?\nS - Sim   N - Não");
         Scanner scanner = new Scanner(System.in);
-        String opcao;
+        char opcao;
         do {
-            opcao = scanner.nextLine().trim().toUpperCase(Locale.getDefault());
-            if (opcao.equals("S")) {
+            opcao = scanner.next().toUpperCase().charAt(0);
+            if (opcao == 'S') {
                 controller.del(ative.getNome());
                  break;
-            } else if (opcao.equals("N")){
+            } else if (opcao== 'N'){
                break;
             } else {
                 System.out.println("Opção inválida!!!");
