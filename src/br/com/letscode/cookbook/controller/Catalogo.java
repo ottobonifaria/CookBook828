@@ -1,6 +1,7 @@
 package br.com.letscode.cookbook.controller;
 
 import br.com.letscode.cookbook.domain.Receita;
+import br.com.letscode.cookbook.view.CatalogoView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +34,10 @@ public class Catalogo {
     }
 
     public Receita getReceita(int numeroReceita) {
-        if (numeroReceita <= 0 || numeroReceita > receitas.size()) throw new IllegalArgumentException();
-
-        return receitas.get(numeroReceita-1);
+        if (numeroReceita <= 0 || numeroReceita > receitas.size()) {
+            throw new IllegalArgumentException();
+        }
+            return receitas.get(numeroReceita - 1);
     }
 
     public Receita getRandom() {
